@@ -411,13 +411,13 @@ public class LeftSubstationPoleAuton extends LinearOpMode {
             traj1 = drive.trajectoryBuilder(traj.end())
                     .lineToLinearHeading(new Pose2d(-38, -10, Math.toRadians(-180)))
                     .build();
-            park3 = drive.trajectoryBuilder(traj1.end())
+            park1 = drive.trajectoryBuilder(traj1.end())
                     .lineToLinearHeading(new Pose2d(-11.5, -12, Math.toRadians(-180)))
                     .build();
             park2 = drive.trajectoryBuilder(traj1.end())
                     .lineToLinearHeading(new Pose2d(-36, -12.1, Math.toRadians(-90)))
                     .build();
-            park1 = drive.trajectoryBuilder(traj1.end())
+            park3 = drive.trajectoryBuilder(traj1.end())
                     .lineToLinearHeading(new Pose2d(-59, -12, Math.toRadians(-180)))
                     .build();
             if (isStopRequested()) return;

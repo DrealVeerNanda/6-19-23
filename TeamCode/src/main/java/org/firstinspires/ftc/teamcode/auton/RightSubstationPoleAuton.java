@@ -359,26 +359,27 @@ public class RightSubstationPoleAuton extends LinearOpMode {
     }
     @Override
     public void runOpMode() throws InterruptedException {
-
-        while(opModeInInit()) {
-            int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-            camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
-            aprilTagDetectionPipeline = new AprilTagDetectionPipeline(tagsize, fx, fy, cx, cy);
-            camera.setPipeline(aprilTagDetectionPipeline);
-            camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+        aprilTagDetectionPipeline = new AprilTagDetectionPipeline(tagsize, fx, fy, cx, cy);
+        camera.setPipeline(aprilTagDetectionPipeline);
+        camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
+        {
+            @Override
+            public void onOpened()
             {
-                @Override
-                public void onOpened()
-                {
-                    camera.startStreaming(800,448, OpenCvCameraRotation.UPRIGHT);
-                }
+                camera.startStreaming(800,448, OpenCvCameraRotation.UPRIGHT);
+            }
 
-                @Override
-                public void onError(int errorCode)
-                {
+            @Override
+            public void onError(int errorCode)
+            {
 
-                }
-            });
+            }
+        });
+        telemetry.setMsTransmissionInterval(50);
+        while(opModeInInit()) {
+
             ArrayList<AprilTagDetection> currentDetections = aprilTagDetectionPipeline.getLatestDetections();
             if (currentDetections.size() != 0) {
                 boolean tagFound = false;
@@ -409,16 +410,16 @@ public class RightSubstationPoleAuton extends LinearOpMode {
                     .lineToLinearHeading(new Pose2d(36, -2, Math.toRadians(-90)))
                     .build();
             traj1 = drive.trajectoryBuilder(traj.end())
-                    .lineToLinearHeading(new Pose2d(38, -10, Math.toRadians(180)))
+                    .lineToLinearHeading(new Pose2d(38, -10, Math.toRadians(0)))
                     .build();
-            park3 = drive.trajectoryBuilder(traj1.end())
-                    .lineToLinearHeading(new Pose2d(11.5, -12, Math.toRadians(-180)))
+            park1 = drive.trajectoryBuilder(traj1.end())
+                    .lineToLinearHeading(new Pose2d(11.5, -12, Math.toRadians(0)))
                     .build();
             park2 = drive.trajectoryBuilder(traj1.end())
                     .lineToLinearHeading(new Pose2d(36, -12.1, Math.toRadians(-90)))
                     .build();
-            park1 = drive.trajectoryBuilder(traj1.end())
-                    .lineToLinearHeading(new Pose2d(59, -12, Math.toRadians(-180)))
+            park3 = drive.trajectoryBuilder(traj1.end())
+                    .lineToLinearHeading(new Pose2d(59, -12, Math.toRadians(0)))
                     .build();
             if (isStopRequested()) return;
             waitForStart();
