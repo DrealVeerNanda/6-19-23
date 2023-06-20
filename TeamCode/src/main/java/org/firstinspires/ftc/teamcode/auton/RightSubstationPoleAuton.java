@@ -421,6 +421,8 @@ public class RightSubstationPoleAuton extends LinearOpMode {
             park3 = drive.trajectoryBuilder(traj1.end())
                     .lineToLinearHeading(new Pose2d(59, -12, Math.toRadians(0)))
                     .build();
+//          .lineToLinearHeading(new Pose2d(36, -18, Math.toRadians(-90)))
+//          .splineToSplineHeading(new Pose2d(20, -14, Math.toRadians(0)), Math.toRadians(0)) goofy spline shit for right side
             if (isStopRequested()) return;
             waitForStart();
         }
