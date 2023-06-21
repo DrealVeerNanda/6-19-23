@@ -424,7 +424,6 @@ public class RightSubstationPoleAuton extends LinearOpMode {
 //            waitForStart(); wrong spot bozo
         }
         waitForStart();
-
         if(opModeIsActive()) {
             AsyncThreaded.stopped = false;
             this.initAsync();
