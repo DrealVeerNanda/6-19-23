@@ -419,8 +419,9 @@ public class LeftSubstationPoleAuton extends LinearOpMode {
                     .lineToLinearHeading(new Pose2d(-59, -12, Math.toRadians(-180)))
                     .build();
             if (isStopRequested()) return;
-            waitForStart();
+//            waitForStart(); wrong spot bozo
         }
+        waitForStart();
         if(opModeIsActive()) {
             AsyncThreaded.stopped = false;
             this.initAsync();
