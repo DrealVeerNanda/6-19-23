@@ -421,8 +421,10 @@ public class RightSubstationPoleAuton extends LinearOpMode {
 //          .lineToLinearHeading(new Pose2d(36, -18, Math.toRadians(-90)))
 //          .splineToSplineHeading(new Pose2d(20, -14, Math.toRadians(0)), Math.toRadians(0)) goofy spline shit for right side
             if (isStopRequested()) return;
-            waitForStart();
+//            waitForStart(); wrong spot bozo
         }
+        waitForStart();
+
         if(opModeIsActive()) {
             AsyncThreaded.stopped = false;
             this.initAsync();
