@@ -450,9 +450,9 @@ public class LeftSubstationPoleAuton extends LinearOpMode {
                 sleep(125);
                 intakeBack();
                 targetPitchPosition = 0.55;
-                sleep(900);
+                sleep(850);
                 this.clawOpen = true;
-                sleep(350);
+                sleep(450);
 
                 targetPitchPosition = 0.39;
                 if(j == 0) break;

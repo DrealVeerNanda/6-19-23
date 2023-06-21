@@ -360,7 +360,7 @@ public class RightSubstationPoleAuton extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+        camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 2"), cameraMonitorViewId);
         aprilTagDetectionPipeline = new AprilTagDetectionPipeline(tagsize, fx, fy, cx, cy);
         camera.setPipeline(aprilTagDetectionPipeline);
         camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
@@ -381,7 +381,6 @@ public class RightSubstationPoleAuton extends LinearOpMode {
         while(opModeInInit()) {
 
             ArrayList<AprilTagDetection> currentDetections = aprilTagDetectionPipeline.getLatestDetections();
-            if (currentDetections.size() != 0) {
                 boolean tagFound = false;
                 for (AprilTagDetection tag : currentDetections) {
                     if (tag.id == LEFT || tag.id == MIDDLE || tag.id == RIGHT) {
@@ -400,8 +399,6 @@ public class RightSubstationPoleAuton extends LinearOpMode {
                     telemetry.addLine("RIGHT");
                     randomization = 3;
                 }
-                telemetry.update();
-            }
             telemetry.update();
             this.initAll();
             this.initDrivetrain();
@@ -435,7 +432,7 @@ public class RightSubstationPoleAuton extends LinearOpMode {
             this.secondThread.run();
             drive.followTrajectory(traj);
             this.targetPitchPosition = 0.39;
-            this.targetTurretPosition = 0.59;
+            this.targetTurretPosition = 0.71;
             drive.followTrajectory(traj1);
 
             this.score();
