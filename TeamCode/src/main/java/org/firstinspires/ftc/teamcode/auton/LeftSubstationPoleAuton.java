@@ -359,10 +359,8 @@ public class LeftSubstationPoleAuton extends LinearOpMode {
     }
     @Override
     public void runOpMode() throws InterruptedException {
-
-        while(opModeInInit()) {
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+        camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 2"), cameraMonitorViewId);
         aprilTagDetectionPipeline = new AprilTagDetectionPipeline(tagsize, fx, fy, cx, cy);
         camera.setPipeline(aprilTagDetectionPipeline);
         camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
@@ -379,27 +377,27 @@ public class LeftSubstationPoleAuton extends LinearOpMode {
 
             }
         });
+        telemetry.setMsTransmissionInterval(50);
+        while(opModeInInit()) {
+
             ArrayList<AprilTagDetection> currentDetections = aprilTagDetectionPipeline.getLatestDetections();
-            if (currentDetections.size() != 0) {
-                boolean tagFound = false;
-                for (AprilTagDetection tag : currentDetections) {
-                    if (tag.id == LEFT || tag.id == MIDDLE || tag.id == RIGHT) {
-                        tagOfInterest = tag;
-                        tagFound = true;
-                        break;
-                    }
+            boolean tagFound = false;
+            for (AprilTagDetection tag : currentDetections) {
+                if (tag.id == LEFT || tag.id == MIDDLE || tag.id == RIGHT) {
+                    tagOfInterest = tag;
+                    tagFound = true;
+                    break;
                 }
-                if (tagOfInterest == null || tagOfInterest.id == LEFT) {
-                    telemetry.addLine("LEFT");
-                    randomization = 1;
-                } else if (tagOfInterest.id == MIDDLE) {
-                    telemetry.addLine("MIDDLE");
-                    randomization = 2;
-                } else {
-                    telemetry.addLine("RIGHT");
-                    randomization = 3;
-                }
-                telemetry.update();
+            }
+            if (tagOfInterest == null || tagOfInterest.id == LEFT) {
+                telemetry.addLine("LEFT");
+                randomization = 1;
+            } else if (tagOfInterest.id == MIDDLE) {
+                telemetry.addLine("MIDDLE");
+                randomization = 2;
+            } else {
+                telemetry.addLine("RIGHT");
+                randomization = 3;
             }
             telemetry.update();
             this.initAll();
